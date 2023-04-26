@@ -1,19 +1,32 @@
+'use client'
+
+import SideBar from './components/SideBar'
+import ContextMenuContainer from './components/menu/ContextMenuContainer'
+import useContextMenu from './hooks/useContextMenu'
+import HomePage from './pages/HomePage'
 import { Fira_Code } from 'next/font/google'
 
 const firaCode = Fira_Code({ subsets: ['latin'] })
 
-
-import SideBar from './components/SideBar'
-
 export default function Home() {
+  const { clicked, setClicked, points, setPoints } = useContextMenu()
+
   return (
     <div className={`${firaCode.className} flex`}>
       {/* Sidebar */}
       <SideBar />
 
       {/* Main Content */}
-      <main className="h-screen flex-1 p-2 bg-[#282c34] text-[#abb2bf] mx-auto text-center pt-20">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus numquam accusantium consectetur aliquam fugit tempora ipsa recusandae voluptate illum obcaecati sapiente magnam nemo iste id provident veniam quo, dolores cum.
+      <main
+        className="h-screen flex-1 bg-[#282c34] p-2 text-[#abb2bf]"
+        onContextMenu={e => {
+          console.log('right click')
+          e.preventDefault()
+          setClicked(true)
+          setPoints({ x: e.pageX, y: e.pageY })
+        }}>
+        <HomePage />
+        <ContextMenuContainer clicked={clicked} x={points.x} y={points.y} />
       </main>
     </div>
   )
