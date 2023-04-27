@@ -1,8 +1,8 @@
 import PageContainer from '../components/PageContainer'
 
-const HomePage = () => {
+const HomePage = ({ title }: any) => {
   return (
-    <PageContainer title={'Projects'}>
+    <PageContainer title={title}>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus
       numquam accusantium consectetur aliquam fugit tempora ipsa recusandae
       voluptate illum obcaecati sapiente magnam nemo iste id provident veniam

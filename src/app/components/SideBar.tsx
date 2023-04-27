@@ -1,3 +1,5 @@
+'use client'
+
 import SideBarIcon from './SideBarIcon'
 import {
   BookOpenIcon,
@@ -9,17 +11,21 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
-const SideBar = () => {
-  const list1 = [
-    { icon: HomeIcon, name: 'Home', active: false },
-    { icon: RectangleStackIcon, name: 'Projects', active: true },
-    { icon: BookOpenIcon, name: 'Blog' },
-    { icon: ShoppingBagIcon, name: 'Store' },
-    { icon: QuestionMarkCircleIcon, name: 'About' },
-    { icon: PhoneIcon, name: 'Contact' },
+const SideBar = (props: any) => {
+  const ROUTES = [
+    { slug: '/', icon: HomeIcon, name: 'DVSOURCE' },
+    { slug: '/projects', icon: RectangleStackIcon, name: 'Projects' },
+    { slug: '/blog', icon: BookOpenIcon, name: 'Blog' },
+    { slug: '/store', icon: ShoppingBagIcon, name: 'Store' },
+    { slug: '/about', icon: QuestionMarkCircleIcon, name: 'About' },
+    { slug: '/contact', icon: PhoneIcon, name: 'Contact' },
   ]
-  const list2 = [
+
+  const [activeRoute, setActiveRoute] = useState(ROUTES[0])
+
+  const ACTIONS = [
     { icon: Cog8ToothIcon, name: 'Settings' },
     { icon: UserIcon, name: 'Profile' },
   ]
@@ -31,27 +37,33 @@ const SideBar = () => {
         DV
       </div>
 
-      {/* Menu */}
+      {/* Routes */}
       <div className="flex-1">
         <ul>
-          {list1.map((item, i) => (
-            <li className="" key={i}>
+          {ROUTES.map((route, i) => (
+            <li
+              className=""
+              key={i}
+              onClick={() => {
+                setActiveRoute(route)
+                props?.onRouteChange(route)
+              }}>
               <SideBarIcon
-                icon={item.icon}
-                tootip={item.name}
-                active={item.active}
+                icon={route.icon}
+                tootip={route.name}
+                active={activeRoute.slug === route.slug}
               />
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Login */}
+      {/* Actions */}
       <div className="bg-[#e5c07b]/20">
         <ul>
-          {list2.map((item, i) => (
+          {ACTIONS.map((action, i) => (
             <li className="" key={i}>
-              <SideBarIcon icon={item.icon} tootip={item.name} />
+              <SideBarIcon icon={action.icon} tootip={action.name} />
             </li>
           ))}
         </ul>
