@@ -1,5 +1,6 @@
 'use client'
 
+import Logo from './Logo'
 import SideBarIcon from './SideBarIcon'
 import {
   BookOpenIcon,
@@ -11,6 +12,7 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 import { useState } from 'react'
 
 const SideBar = (props: any) => {
@@ -49,9 +51,6 @@ const SideBar = (props: any) => {
       name: 'Contact',
     },
   ]
-
-  const [activeRoute, setActiveRoute] = useState(ROUTES[0])
-
   const ACTIONS = [
     {
       icon: Cog8ToothIcon,
@@ -70,30 +69,33 @@ const SideBar = (props: any) => {
     },
   ]
 
+  const [activeRoute, setActiveRoute] = useState(ROUTES[0])
+
+  const onRouteChange = (route: any) => {
+    setActiveRoute(route)
+  }
+
+  const onAction = (action: any) => {}
+
   return (
     <div className="flex h-screen w-12 flex-col bg-[#282c34]/90">
-      {/* Logo */}
-      <div className="flex h-12 w-full items-center justify-center bg-[#61AFEF] text-2xl font-extrabold text-white">
-        DV
-      </div>
+      <Logo />
 
       {/* Routes */}
       <div className="flex-1">
         <ul>
           {ROUTES.map((route, i) => (
-            <li
+            <Link
               className=""
               key={i}
-              onClick={() => {
-                setActiveRoute(route)
-                props?.onRouteChange(route)
-              }}>
+              onClick={() => onRouteChange(route)}
+              href={route.slug}>
               <SideBarIcon
                 icon={route.icon}
                 tootip={route.name}
                 active={activeRoute.slug === route.slug}
               />
-            </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -102,12 +104,7 @@ const SideBar = (props: any) => {
       <div className="bg-[#e5c07b]/20">
         <ul>
           {ACTIONS.map((action, i) => (
-            <li
-              className=""
-              key={i}
-              onClick={() => {
-                props?.onAction(action)
-              }}>
+            <li className="" key={i} onClick={() => onAction(action)}>
               <SideBarIcon icon={action.icon} tootip={action.name} />
             </li>
           ))}

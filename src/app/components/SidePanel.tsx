@@ -11,7 +11,7 @@ const SidePanel = (props: any) => {
         {showContent && <SidePanelSearch />}
       </div>
       <div className="">
-        {props?.actions.map((action: any) => {
+        {(props?.actions || []).map((action: any) => {
           return <ActionButton action={action} />
         })}
       </div>
