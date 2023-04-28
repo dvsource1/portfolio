@@ -1,5 +1,9 @@
 'use client'
 
+import {
+  closePanel,
+  openPanel,
+} from '../redux/features/sidePanel/sidePanelSlice'
 import Logo from './Logo'
 import SideBarIcon from './SideBarIcon'
 import {
@@ -12,8 +16,9 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 const SideBar = (props: any) => {
   const ROUTES = [
@@ -69,13 +74,23 @@ const SideBar = (props: any) => {
     },
   ]
 
+  const dispatch = useDispatch()
   const [activeRoute, setActiveRoute] = useState(ROUTES[0])
+  const router = useRouter()
 
   const onRouteChange = (route: any) => {
+    router.push(route.slug)
     setActiveRoute(route)
+    if (route?.options?.hasSearch) {
+      dispatch(openPanel())
+    } else {
+      dispatch(closePanel())
+    }
   }
 
-  const onAction = (action: any) => {}
+  const onAction = (action: any) => {
+    dispatch(openPanel())
+  }
 
   return (
     <div className="flex h-screen w-12 flex-col bg-[#282c34]/90">
@@ -85,17 +100,13 @@ const SideBar = (props: any) => {
       <div className="flex-1">
         <ul>
           {ROUTES.map((route, i) => (
-            <Link
-              className=""
-              key={i}
-              onClick={() => onRouteChange(route)}
-              href={route.slug}>
+            <li className="" key={i} onClick={() => onRouteChange(route)}>
               <SideBarIcon
                 icon={route.icon}
                 tootip={route.name}
                 active={activeRoute.slug === route.slug}
               />
-            </Link>
+            </li>
           ))}
         </ul>
       </div>
