@@ -1,7 +1,12 @@
 import * as HIcons from '@heroicons/react/24/outline'
 import { isString } from 'lodash'
 
-type SideBarIconProps = { icon: any; tootip?: string; active?: boolean }
+type SideBarIconProps = {
+  icon: any
+  type: 'route' | 'action'
+  tootip?: string
+  active?: boolean
+}
 
 const SideBarIcon = (props: SideBarIconProps) => {
   const Icon = props.icon
@@ -19,7 +24,15 @@ const SideBarIcon = (props: SideBarIconProps) => {
   return (
     <div
       className={`flex h-12 items-center justify-center ${
-        props.active ? 'bg-[#61AFEF]/20' : 'bg-transparent'
+        props.type === 'route'
+          ? 'hover:bg-[#61AFEF]/40'
+          : 'hover:bg-[#e5c07b]/40'
+      } ${
+        props.active
+          ? props.type === 'route'
+            ? 'bg-[#61AFEF]/20'
+            : 'bg-[#e5c07b]/20'
+          : 'bg-transparent'
       } group cursor-pointer`}>
       {/* @ts-ignore */}
       <HIcon

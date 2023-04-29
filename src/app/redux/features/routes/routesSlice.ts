@@ -47,11 +47,13 @@ const ROOT_ROUTES = [
 
 export type RoutesState = {
   rootRoutes: Route[]
+  homeRoute: Route
   activeRoute: Route
 }
 
 const initialState: RoutesState = {
   rootRoutes: ROOT_ROUTES,
+  homeRoute: ROOT_ROUTES[0],
   activeRoute: ROOT_ROUTES[0],
 }
 

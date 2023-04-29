@@ -29,7 +29,7 @@ const initialState: ActionsState = {
 }
 
 export const routesSlice = createSlice({
-  name: 'routes',
+  name: 'actions',
   initialState,
   reducers: {
     doAction: (slate, action: PayloadAction<RouteAction>) => {

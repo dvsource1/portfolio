@@ -14,13 +14,15 @@ import SideBarIcon from './SideBarIcon'
 import { Route, RouteAction, RouteOptions } from 'dv/@types/route'
 import { find } from 'lodash'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const SideBar = (props: any) => {
+  const navigater = useRouter()
   const dispatch = useDispatch()
 
-  const { rootRoutes, activeRoute } = useSelector(
+  const { rootRoutes, homeRoute, activeRoute } = useSelector(
     (state: RootState) => state.routes,
   )
   const rootActions = useSelector(
@@ -31,7 +33,7 @@ const SideBar = (props: any) => {
 
   useEffect(() => {
     const currentRoute = find(rootRoutes, { slug: pathname })
-    changeRoute(currentRoute ? currentRoute : rootRoutes[0])
+    changeRoute(currentRoute ? currentRoute : homeRoute)
   }, [pathname])
 
   const changeSidePanel = (routeOptions?: RouteOptions) => {
@@ -77,6 +79,7 @@ const SideBar = (props: any) => {
                 <SideBarIcon
                   icon={route.icon}
                   tootip={route.name}
+                  type={'route'}
                   active={activeRoute.slug === route.slug}
                 />
               </Link>
@@ -90,7 +93,11 @@ const SideBar = (props: any) => {
         <ul>
           {rootActions.map((action, i) => (
             <li className="" key={i} onClick={() => onAction(action)}>
-              <SideBarIcon icon={action.icon} tootip={action.name} />
+              <SideBarIcon
+                icon={action.icon}
+                type={'action'}
+                tootip={action.name}
+              />
             </li>
           ))}
         </ul>
