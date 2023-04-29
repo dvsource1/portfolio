@@ -1,5 +1,5 @@
-import SideBar from './components/SideBar'
-import SidePanel from './components/SidePanel'
+import SideBar from './components/sidebar/SideBar'
+import SidePanel from './components/sidepanel/SidePanel'
 import './globals.css'
 import Provider from './redux/provider'
 import { Fira_Code } from 'next/font/google'

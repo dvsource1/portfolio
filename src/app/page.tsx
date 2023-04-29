@@ -1,4 +1,4 @@
-import PageContainer from './components/PageContainer'
+import PageContainer from './components/page/PageContainer'
 
 export default function Home() {
   return (

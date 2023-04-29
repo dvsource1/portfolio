@@ -1,14 +1,14 @@
 'use client'
 
-import useNavigationEvent from '../hooks/useNavigationEvent'
-import { changeActiveRoute } from '../redux/features/routes/routesSlice'
+import useNavigationEvent from '../../hooks/useNavigationEvent'
+import { changeActiveRoute } from '../../redux/features/routes/routesSlice'
 import {
   changeSidePanelOptions,
   clearSidePanelOptions,
   closePanel,
   openPanel,
-} from '../redux/features/sidePanel/sidePanelSlice'
-import { RootState } from '../redux/store'
+} from '../../redux/features/sidePanel/sidePanelSlice'
+import { RootState } from '../../redux/store'
 import Logo from './Logo'
 import SideBarIcon from './SideBarIcon'
 import { Route, RouteAction, RouteOptions } from 'dv/@types/route'

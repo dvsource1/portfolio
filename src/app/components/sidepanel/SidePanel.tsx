@@ -1,9 +1,9 @@
 'use client'
 
-import useNavigationEvent from '../hooks/useNavigationEvent'
-import { RootState } from '../redux/store'
 import ActionButton from './ActionButton'
 import SidePanelSearch from './SidePanelSearch'
+import useNavigationEvent from 'dv/app/hooks/useNavigationEvent'
+import { RootState } from 'dv/app/redux/store'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 

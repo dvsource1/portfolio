@@ -1,6 +1,6 @@
 'use client'
 
-import PageContainer from '../components/PageContainer'
+import PageContainer from '../components/page/PageContainer'
 
 const StorePage = () => {
   return <PageContainer title={'Store'}></PageContainer>

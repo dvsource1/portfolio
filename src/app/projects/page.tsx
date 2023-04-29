@@ -1,4 +1,4 @@
-import PageContainer from '../components/PageContainer'
+import PageContainer from '../components/page/PageContainer'
 
 const ProjectsPage = () => {
   return <PageContainer title={'Projects'}></PageContainer>
