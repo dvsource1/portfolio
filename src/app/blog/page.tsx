@@ -47,28 +47,28 @@ const BlogPage = () => {
 
   return (
     <PageContainer title={'Blog'}>
-      <div className="flex h-full flex-col">
-        <div className="text-sm">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. A molestiae
-          laboriosam illo et voluptatibus, reprehenderit consequatur ducimus
-          dolorem delectus soluta, cum aliquam provident tempore maiores nihil
-          saepe enim sunt rem?
-        </div>
-        <div className="mt-4 flex flex-wrap justify-center text-sm">
-          {categories.map(i => {
-            return (
-              <div
-                key={i.code}
-                className={`m-1 cursor-pointer ${i.type.join(
-                  ' ',
-                )} border-2 px-2 py-0.5 capitalize`}>
-                {i.name}
-              </div>
-            )
-          })}
-        </div>
-        <div className="mt-4 grid w-full flex-1 grid-cols-3 gap-4">
-          {[1, 2, 3, 4, 5].map(i => {
+      <div className="p-2 text-sm">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. A molestiae
+        laboriosam illo et voluptatibus, reprehenderit consequatur ducimus
+        dolorem delectus soluta, cum aliquam provident tempore maiores nihil
+        saepe enim sunt rem?
+      </div>
+      <div className="flex flex-wrap justify-center px-2 pt-6 text-sm">
+        {categories.map(i => {
+          return (
+            <div
+              key={i.code}
+              className={`m-1 cursor-pointer ${i.type.join(
+                ' ',
+              )} border-2 px-2 py-0.5 capitalize`}>
+              {i.name}
+            </div>
+          )
+        })}
+      </div>
+      <div className="flex-1 px-2 pt-6">
+        <div className="grid grid-cols-3 gap-4 overflow-x-scroll">
+          {[1, 2, 3, 4, 5, 6, 7].map(i => {
             return (
               <div
                 key={i}

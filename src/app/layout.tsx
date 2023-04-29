@@ -27,7 +27,7 @@ export default function RootLayout({
             <SidePanel />
 
             {/* Main Content */}
-            <main className="h-screen flex-1 bg-[#282c34] p-2 text-[#abb2bf]">
+            <main className="h-screen flex-1 bg-[#282c34] text-[#abb2bf]">
               {children}
             </main>
           </div>
