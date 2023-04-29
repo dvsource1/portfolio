@@ -1,12 +1,19 @@
 'use client'
 
+import useNavigationEvent from '../hooks/useNavigationEvent'
 import { RootState } from '../redux/store'
 import ActionButton from './ActionButton'
 import SidePanelSearch from './SidePanelSearch'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-const SidePanel = (props: any) => {
+const SidePanel = () => {
   const sidePanel = useSelector((state: RootState) => state.sidePanel)
+  const { pathname } = useNavigationEvent()
+
+  useEffect(() => {
+    console.log(pathname)
+  }, [pathname])
 
   return sidePanel.isOpen ? (
     sidePanel.isOpen && (
@@ -14,17 +21,17 @@ const SidePanel = (props: any) => {
         <div className="flex-1">
           {sidePanel.options?.hasSearch && <SidePanelSearch />}
         </div>
-        {sidePanel.actions?.length && (
+        {sidePanel.options?.actions?.length && (
           <div className="">
-            {sidePanel.actions.map((action: any) => {
-              return <ActionButton action={action} />
+            {sidePanel.options.actions.map((action, i) => {
+              return <ActionButton action={action} key={i} />
             })}
           </div>
         )}
       </div>
     )
   ) : (
-    <></>
+    <>{/* SidePanel */}</>
   )
 }
 

@@ -1,95 +1,67 @@
 'use client'
 
+import useNavigationEvent from '../hooks/useNavigationEvent'
+import { changeActiveRoute } from '../redux/features/routes/routesSlice'
 import {
+  changeSidePanelOptions,
+  clearSidePanelOptions,
   closePanel,
   openPanel,
 } from '../redux/features/sidePanel/sidePanelSlice'
+import { RootState } from '../redux/store'
 import Logo from './Logo'
 import SideBarIcon from './SideBarIcon'
-import {
-  BookOpenIcon,
-  Cog8ToothIcon,
-  HomeIcon,
-  PhoneIcon,
-  QuestionMarkCircleIcon,
-  RectangleStackIcon,
-  ShoppingBagIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { Route, RouteAction, RouteOptions } from 'dv/@types/route'
+import { find } from 'lodash'
+import Link from 'next/link'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const SideBar = (props: any) => {
-  const ROUTES = [
-    {
-      slug: '/',
-      icon: HomeIcon,
-      name: 'DVSOURCE',
-    },
-    {
-      slug: '/projects',
-      icon: RectangleStackIcon,
-      name: 'Projects',
-      options: { hasSearch: true },
-    },
-    {
-      slug: '/blog',
-      icon: BookOpenIcon,
-      name: 'Blog',
-      options: { hasSearch: true },
-    },
-    {
-      slug: '/store',
-      icon: ShoppingBagIcon,
-      name: 'Store',
-      options: { hasSearch: true },
-    },
-    {
-      slug: '/about',
-      icon: QuestionMarkCircleIcon,
-      name: 'About',
-    },
-    {
-      slug: '/contact',
-      icon: PhoneIcon,
-      name: 'Contact',
-    },
-  ]
-  const ACTIONS = [
-    {
-      icon: Cog8ToothIcon,
-      name: 'Settings',
-      sideActions: [{ name: 'Action 1' }, { name: 'Action 2' }],
-    },
-    {
-      icon: UserIcon,
-      name: 'Profile',
-      sideActions: [
-        { name: 'Action 1' },
-        { name: 'Action 2' },
-        { name: 'Action 3' },
-        { name: 'Action 4' },
-      ],
-    },
-  ]
-
   const dispatch = useDispatch()
-  const [activeRoute, setActiveRoute] = useState(ROUTES[0])
-  const router = useRouter()
 
-  const onRouteChange = (route: any) => {
-    router.push(route.slug)
-    setActiveRoute(route)
-    if (route?.options?.hasSearch) {
+  const { rootRoutes, activeRoute } = useSelector(
+    (state: RootState) => state.routes,
+  )
+  const rootActions = useSelector(
+    (state: RootState) => state.actions.rootActions,
+  )
+
+  const { pathname } = useNavigationEvent()
+
+  useEffect(() => {
+    const currentRoute = find(rootRoutes, { slug: pathname })
+    changeRoute(currentRoute ? currentRoute : rootRoutes[0])
+  }, [pathname])
+
+  const changeSidePanel = (routeOptions?: RouteOptions) => {
+    if (routeOptions) {
+      dispatch(changeSidePanelOptions(routeOptions))
       dispatch(openPanel())
     } else {
       dispatch(closePanel())
+      dispatch(clearSidePanelOptions())
     }
   }
 
-  const onAction = (action: any) => {
+  const changeRoute = (route: Route) => {
+    dispatch(changeActiveRoute(route))
+    changeSidePanel(route.options)
+  }
+
+  const onAction = (action: RouteAction) => {
     dispatch(openPanel())
+    if (action.children) {
+      dispatch(changeSidePanelOptions({ actions: action.children }))
+    } else {
+      dispatch(clearSidePanelOptions())
+    }
+  }
+
+  const onRouteLinkClick = (route: Route) => {
+    if (route === activeRoute) {
+      changeSidePanel(route.options)
+    }
   }
 
   return (
@@ -99,13 +71,15 @@ const SideBar = (props: any) => {
       {/* Routes */}
       <div className="flex-1">
         <ul>
-          {ROUTES.map((route, i) => (
-            <li className="" key={i} onClick={() => onRouteChange(route)}>
-              <SideBarIcon
-                icon={route.icon}
-                tootip={route.name}
-                active={activeRoute.slug === route.slug}
-              />
+          {rootRoutes.map((route, i) => (
+            <li className="" key={i}>
+              <Link href={route.slug} onClick={() => onRouteLinkClick(route)}>
+                <SideBarIcon
+                  icon={route.icon}
+                  tootip={route.name}
+                  active={activeRoute.slug === route.slug}
+                />
+              </Link>
             </li>
           ))}
         </ul>
@@ -114,7 +88,7 @@ const SideBar = (props: any) => {
       {/* Actions */}
       <div className="bg-[#e5c07b]/20">
         <ul>
-          {ACTIONS.map((action, i) => (
+          {rootActions.map((action, i) => (
             <li className="" key={i} onClick={() => onAction(action)}>
               <SideBarIcon icon={action.icon} tootip={action.name} />
             </li>

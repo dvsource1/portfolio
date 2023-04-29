@@ -1,15 +1,17 @@
 export interface Route {
   slug: string
   name: string
-  icon?: any
+  icon?: string | any
   options?: RouteOptions
 }
 
 export interface RouteOptions {
   hasSearch?: boolean
-  actions: any[]
+  actions?: RouteAction[]
 }
 
 export interface RouteAction {
   name: string
+  icon?: string | any
+  children?: RouteAction[]
 }

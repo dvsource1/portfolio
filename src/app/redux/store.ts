@@ -1,13 +1,15 @@
 'use client'
 
-import routeReducer from './features/route/routeSlice'
+import actionsReducer from './features/actions/actionsSlice'
+import routesReducer from './features/routes/routesSlice'
 import sidePanelReducer from './features/sidePanel/sidePanelSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
     sidePanel: sidePanelReducer,
-    route: routeReducer,
+    routes: routesReducer,
+    actions: actionsReducer,
   },
 })
 
