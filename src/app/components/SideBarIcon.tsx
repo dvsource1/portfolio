@@ -18,8 +18,8 @@ const SideBarIcon = (props: SideBarIconProps) => {
 
   return (
     <div
-      className={`flex h-12 items-center justify-center border-l-2 ${
-        props.active ? 'border-white' : 'border-transparent'
+      className={`flex h-12 items-center justify-center ${
+        props.active ? 'bg-[#61AFEF]/20' : 'bg-transparent'
       } group cursor-pointer`}>
       {/* @ts-ignore */}
       <HIcon
