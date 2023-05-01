@@ -10,9 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.16.4",
     "@heroicons/react": "^2.0.17",
     "@prisma/client": "^4.13.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "next": "13.3.0",
     "next-auth": "^4.22.1",

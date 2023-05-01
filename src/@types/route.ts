@@ -14,4 +14,6 @@ export interface RouteAction {
   name: string
   icon?: string | any
   children?: RouteAction[]
+  callbackKey?: string
+  callback?: () => void
 }

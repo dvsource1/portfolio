@@ -12,6 +12,9 @@ import { RootState } from '../../redux/store'
 import Logo from './Logo'
 import SideBarIcon from './SideBarIcon'
 import { Route, RouteAction, RouteOptions } from 'dv/@types/route'
+import { getRootActions } from 'dv/app/actions/getRootActions'
+import useActions from 'dv/app/hooks/useActions'
+import { init } from 'dv/app/redux/features/actions/actionsSlice'
 import { find } from 'lodash'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -30,6 +33,8 @@ const SideBar = (props: any) => {
   )
 
   const { pathname } = useNavigationEvent()
+
+  const { signIn, signOut } = useActions()
 
   useEffect(() => {
     const currentRoute = find(rootRoutes, { slug: pathname })
@@ -65,6 +70,8 @@ const SideBar = (props: any) => {
       changeSidePanel(route.options)
     }
   }
+
+  dispatch(init(getRootActions({ signin: signIn, signout: signOut })))
 
   return (
     <div className="flex h-screen w-12 flex-col bg-[#282c34]/90">

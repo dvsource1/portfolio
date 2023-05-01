@@ -2,22 +2,7 @@
 
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { RouteAction } from 'dv/@types/route'
-
-const ROOT_ACTIONS = [
-  {
-    icon: 'Cog8ToothIcon',
-    name: 'Settings',
-    children: [{ name: 'Languge', icon: 'LanguageIcon' }],
-  },
-  {
-    icon: 'UserIcon',
-    name: 'Profile',
-    children: [
-      { name: 'Profile', icon: 'UserCircleIcon' },
-      { name: 'Logout', icon: 'ArrowLeftOnRectangleIcon' },
-    ],
-  },
-]
+import { ROOT_ACTIONS } from 'dv/app/actions/getRootActions'
 
 export type ActionsState = {
   rootActions: RouteAction[]
@@ -32,12 +17,15 @@ export const routesSlice = createSlice({
   name: 'actions',
   initialState,
   reducers: {
-    doAction: (slate, action: PayloadAction<RouteAction>) => {
-      slate.activeAction = action.payload
+    init: (state, action: PayloadAction<RouteAction[]>) => {
+      state.rootActions = action.payload
+    },
+    doAction: (state, action: PayloadAction<RouteAction>) => {
+      state.activeAction = action.payload
     },
   },
 })
 
-export const { doAction } = routesSlice.actions
+export const { init, doAction } = routesSlice.actions
 
 export default routesSlice.reducer
