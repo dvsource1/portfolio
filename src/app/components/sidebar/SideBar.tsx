@@ -7,6 +7,7 @@ import {
   clearSidePanelOptions,
   closePanel,
   openPanel,
+  togglePanel,
 } from '../../redux/features/sidePanel/sidePanelSlice'
 import { RootState } from '../../redux/store'
 import Logo from './Logo'
@@ -31,6 +32,7 @@ const SideBar = (props: any) => {
   const rootActions = useSelector(
     (state: RootState) => state.actions.rootActions,
   )
+  const { options } = useSelector((state: RootState) => state.sidePanel)
 
   const { pathname } = useNavigationEvent()
 
@@ -57,7 +59,7 @@ const SideBar = (props: any) => {
   }
 
   const onAction = (action: RouteAction) => {
-    dispatch(openPanel())
+    dispatch(action.children === options?.actions ? togglePanel() : openPanel())
     if (action.children) {
       dispatch(changeSidePanelOptions({ actions: action.children }))
     } else {

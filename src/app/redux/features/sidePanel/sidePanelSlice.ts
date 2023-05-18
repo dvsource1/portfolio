@@ -20,6 +20,9 @@ export const sidePanelSlice = createSlice({
     closePanel: state => {
       state.isOpen = false
     },
+    togglePanel: state => {
+      state.isOpen = !state.isOpen
+    },
     changeSidePanelOptions: (state, action: PayloadAction<RouteOptions>) => {
       state.options = action.payload
     },
@@ -32,6 +35,7 @@ export const sidePanelSlice = createSlice({
 export const {
   openPanel,
   closePanel,
+  togglePanel,
   changeSidePanelOptions,
   clearSidePanelOptions,
 } = sidePanelSlice.actions
