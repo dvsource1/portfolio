@@ -17,7 +17,7 @@ const SidePanel = () => {
 
   return sidePanel.isOpen ? (
     sidePanel.isOpen && (
-      <div className="flex h-screen w-60 flex-col bg-[#282c34]/95 md:w-72">
+      <div className="md hidden h-screen w-72 flex-col bg-[#282c34]/95 md:flex">
         <div className="flex-1">
           {sidePanel.options?.hasSearch && <SidePanelSearch />}
         </div>

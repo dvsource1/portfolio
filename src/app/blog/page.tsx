@@ -53,7 +53,7 @@ const BlogPage = () => {
         dolorem delectus soluta, cum aliquam provident tempore maiores nihil
         saepe enim sunt rem?
       </div>
-      <div className="flex flex-wrap justify-center px-2 pt-6 text-sm">
+      <div className="sticky top-0 z-10 flex flex-wrap justify-center bg-[#282c34] px-2 pt-6 text-sm">
         {categories.map(i => {
           return (
             <div
@@ -67,7 +67,7 @@ const BlogPage = () => {
         })}
       </div>
       <div className="flex-1 px-2 pt-6">
-        <div className="grid grid-cols-3 gap-4 overflow-x-scroll">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6, 7].map(i => {
             return (
               <div
